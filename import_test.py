@@ -17,7 +17,7 @@ for item in list2:
         time_re = re.search(time_format, item)
         time_group = time_re.group().strip(' - ')
         sender = re.search(sender_format, item).group().strip(':').strip('- ')
-        # sender = re.search(sender_format, item[time_group.span()[1]:time_group.span()[1]+20]).group()
-        print(f'Date: {date_group} Time: {time_group} Sender: {sender}')
+        message = re.search(f"{sender}\:.*", item).group().strip(f"{sender}: ")
+        print(f'Date: {date_group} Time: {time_group} Sender: {sender} Message: {message}')
     except:
         print("no date on this line")
