@@ -12,9 +12,9 @@ Save the CSS file as 'imessage.css' in the same directory.
 
 Known bugs
 ---
-Words beginning with or containing the letter 'A' sometimes get deleted or cut off. Maybe a unicode import issue?
+None
 
 To do
 ---
 Add the image file link so you can click and view the full size image. 
-Auto scaling of images to a reasonable resolution for a webpage. 
+Make the output file name based on the input filename
