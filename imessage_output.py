@@ -26,7 +26,12 @@ def extract_messages_from_text(text_lines):
                 time_re = re.search(time_format, item)
                 time_group = time_re.group().strip(' - ')
                 sender = re.search(sender_format, item).group().strip(':').strip('- ')
-                text = re.search(f"{sender}\:.*", item).group().strip(f"{sender}: ") + message_suffix
+                text = item[re.search(sender_format, item).span()[1]+1:]
+                # text = text.replace('<','').replace('>','')
+                if "\<Media omitted\>" in text:
+                    text = text.replace("\<Media omitted\>", "Media omitted")
+                text = text.replace('IMG-','<img src="IMG-')
+                text = text.replace('.jpg','.jpg" width=280>')
                 messages.append(wamsg.WAMSG(date_group, time_group, sender, text))
                 message_suffix = ""
             except:
@@ -74,7 +79,7 @@ def export_file(html_text):
 def main():
     filename = sys.argv[1]
     print(filename)
-    sender = filename.strip(".\\WhatsApp Chat with").strip(".txt")
+    sender = filename.replace(".\\WhatsApp Chat with ","").replace(".txt","")
     print(sender)
     messages_list = import_message_file(filename)
     messages = extract_messages_from_text(messages_list)
